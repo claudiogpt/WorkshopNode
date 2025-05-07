@@ -3,6 +3,12 @@ const express = require('express');
 
 // Importando o módulo express
 const app = express();
+const produtos = [
+  { id: 1, nome: 'Produto 1', preco: 10.0 },
+  { id: 2, nome: 'Produto 2', preco: 20.0 },
+  { id: 3, nome: 'Produto 3', preco: 30.0 },
+  { id: 4, nome: 'Produto 4', preco: 40.0 }
+];
 
 // Configurando o middleware para analisar o corpo das requisições
 app.use(express.urlencoded({ extended: true }));
@@ -26,16 +32,16 @@ app.get('/ola', (req, res) => {
   res.send(`Olá ${nome}`);
 });
 
-const produtos = [
-  { id: 1, nome: 'Produto 1', preco: 10.0 },
-  { id: 2, nome: 'Produto 2', preco: 20.0 },
-  { id: 3, nome: 'Produto 3', preco: 30.0 },
-  { id: 4, nome: 'Produto 4', preco: 40.0 }
-];
-
 app.get('/produtos', (req, res) => {
     res.json(produtos);
 });
+
+app.post('/produtos', (req, res) => {
+    const { id, nome, preco } = req.body;
+    const novoProduto = { id, nome, preco };
+    produtos.push(novoProduto);
+    res.status(201).json(novoProduto);
+})
 
 //Inicializa o servidorna porta 3000
 app.listen(3000, () => {
