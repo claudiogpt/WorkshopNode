@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Loja de Produtos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #f8fafc, #e0e7ff);
+            min-height: 100vh;
+            transition: background 1s;
+        }
+        header {
+            background: #6366f1;
+            color: #fff;
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            transition: background 0.8s;
+        }
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            transition: box-shadow 0.5s;
+        }
+        .produtos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .produto {
+            background: #f1f5f9;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            width: 220px;
+            text-align: center;
+            transition: background 0.7s, box-shadow 0.7s;
+        }
+        .produto:hover {
+            background: #c7d2fe;
+            box-shadow: 0 4px 16px rgba(99,102,241,0.15);
+        }
+        .produto img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+        .produto h3 {
+            margin: 0.5rem 0;
+            font-size: 1.2rem;
+            color: #3730a3;
+        }
+        .produto p {
+            color: #475569;
+            font-size: 1rem;
+        }
+        .produto .preco {
+            color: #16a34a;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+        /* Transição de cor ao clicar no header */
+        header.clicked {
+            background: #16a34a;
+        }
+        body.alt-bg {
+            background: linear-gradient(120deg, #f0fdf4, #bbf7d0);
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header">Minha Loja de Produtos</header>
+    <main>
+        <h2>Produtos em Destaque</h2>
+        <div class="produtos">
+            <div class="produto">
+                <img src="https://via.placeholder.com/100" alt="Produto 1">
+                <h3>Produto 1</h3>
+                <p>Descrição breve do produto 1.</p>
+                <div class="preco">R$ 49,90</div>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/100" alt="Produto 2">
+                <h3>Produto 2</h3>
+                <p>Descrição breve do produto 2.</p>
+                <div class="preco">R$ 79,90</div>
+            </div>
+            <div class="produto">
+                <img src="https://via.placeholder.com/100" alt="Produto 3">
+                <h3>Produto 3</h3>
+                <p>Descrição breve do produto 3.</p>
+                <div class="preco">R$ 99,90</div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Transição de cor ao clicar no header
+        const header = document.getElementById('site-header');
+        header.addEventListener('click', () => {
+            header.classList.toggle('clicked');
+            document.body.classList.toggle('alt-bg');
+        });
+    </script>
+</body>
+</html>
