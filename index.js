@@ -1,9 +1,8 @@
 //Importa o módulo express
 const express = require('express');
-
-// Importando o módulo express
 const app = express();
-const produtos = [];
+const knexConfig = require('./knexfile');
+const knex = require('knex')(knexConfig.development);
 
 // Configurando o middleware para analisar o corpo das requisições
 app.use(express.urlencoded({ extended: true }));
@@ -15,23 +14,30 @@ const routerAPI = express.Router();
 app.use('/api', routerAPI);
 
 routerAPI.get('/produtos', (req, res) => {
+    knex.select('*').from('produtos')
+      .then(produtos => {
+        res.json(produtos);
+      })
     res.json(produtos);
 });
 
 routerAPI.post('/produtos', (req, res) => {
-  try {
     const novoProduto = {
       id: produtos.length + 1,
       nome: req.body.nome,
       preco: req.body.preco
     };
 
-    produtos.push(novoProduto);
-    res.status(201).json(novoProduto);
-  } catch (error) {
-    console.error('Erro ao processar a requisição:', error);
-    res.status(500).json({ error: 'Erro interno do servidor' });
-  }
+    knex('produtos').insert(novoProduto, ['id'])
+      .then(dados => {
+        let id = dados[0].id;
+        novoProduto.id = id;
+        res.status(201).json(novoProduto);
+      })
+      .catch(error => {
+        console.error('Erro ao inserir produto:', error);
+        res.status(500).json({ error: 'Erro interno do servidor' })
+      });
 });
 
 routerAPI.put('/produtos/:id', (req, res) => {
